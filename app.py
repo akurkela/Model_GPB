@@ -3,32 +3,78 @@ import matplotlib.pyplot as plt
 
 from model import evaluate
 
+# -----------------------------------------------------------------------------
+# Page configuration
+# -----------------------------------------------------------------------------
+
 st.set_page_config(
-    page_title="Scientific Plotter",
-    layout="centered"
+    page_title="GPB EoS Prior",
+    layout="wide"
 )
 
-st.title("Scientific Plotter")
+# -----------------------------------------------------------------------------
+# Header
+# -----------------------------------------------------------------------------
 
-with st.form("parameters"):
+st.title("Gaussian-Process Bridge Extension for Neutron-Star Equations of State")
+
+st.markdown(r"""
+This application generates a **prior ensemble of allowed equation-of-state
+(EoS) extensions** connecting a low-density neutron-star matter model to the
+high-density perturbative QCD (pQCD) regime. Based on arXiv:xxxx.xxxx
+
+The prior is conditioned on the **termination point**
+
+$$
+(\mu_L,\; n_L,\; p_L),
+$$
+
+where
+
+- $\mu_L$ [GeV] is the baryon chemical potential,
+- $n_L$ [1/fm^3] is the baryon number density ,
+- $p_L$ [GeV/fm^3] is the pressure.
+
+The generated interpolations satisfy the constraints of
+
+- thermodynamic consistency,
+- mechanical stability,
+- causality,
+
+while connecting to the perturbative-QCD equation of state at high density.
+
+Enter the termination point and press **Generate prior**.
+""")
+
+st.divider()
+
+# -----------------------------------------------------------------------------
+# Sidebar
+# -----------------------------------------------------------------------------
+
+with st.sidebar:
+
+    st.header("Termination point")
 
     muL = st.number_input(
-        "muL",
-        value=0.2,
+        r"$\mu_L$",
+        value=1000.0,
         format="%.6f"
     )
 
     nL = st.number_input(
-        "nL",
-        value=0.5,
+        r"$n_L$",
+        value=0.600000,
         format="%.6f"
     )
 
     pL = st.number_input(
-        "pL",
-        value=0.3,
+        r"$p_L$",
+        value=100.000000,
         format="%.6f"
     )
+
+    st.divider()
 
     number_of_interpolations = st.number_input(
         "Number of interpolations",
@@ -38,7 +84,14 @@ with st.form("parameters"):
         step=1
     )
 
-    compute = st.form_submit_button("Compute")
+    compute = st.button(
+        "Generate prior",
+        use_container_width=True
+    )
+
+# -----------------------------------------------------------------------------
+# Main panel
+# -----------------------------------------------------------------------------
 
 if compute:
 
@@ -49,18 +102,43 @@ if compute:
         number_of_interpolations
     )
 
-    fig, ax = plt.subplots(figsize=(6, 4))
+    st.subheader("Prior ensemble of allowed extensions")
 
-    ax.plot(x, y, linewidth=2)
+    st.write(
+        "The figure below shows the prior generated from the supplied "
+        "termination point. In the full model this corresponds to an "
+        "ensemble of thermodynamically consistent EoS extensions that "
+        "connect the low-density model to the perturbative-QCD regime."
+    )
 
-    ax.set_xlim(0, 1)
-    ax.set_ylim(0, 1)
+    fig, ax = plt.subplots(figsize=(8, 5))
 
-    ax.set_xlabel("x")
-    ax.set_ylabel("y")
+    ax.plot(
+        x,
+        y,
+        linewidth=2
+    )
 
-    ax.set_title(r"$y=\mu_L+n_Lx+p_Lx^3$")
+    ax.set_xlabel(r"$x$")
+
+    ax.set_ylabel(r"$y$")
+
+    ax.set_title(
+        r"Prior conditioned on $(\mu_L,n_L,p_L)$"
+    )
 
     ax.grid(True)
 
     st.pyplot(fig)
+
+# -----------------------------------------------------------------------------
+# Footer
+# -----------------------------------------------------------------------------
+
+st.divider()
+
+st.caption(
+    "This application implements the Gaussian-Process Bridge (GPB) prior "
+    "for neutron-star equation-of-state extensions constrained by "
+    "thermodynamic consistency, causality, and perturbative QCD."
+)
