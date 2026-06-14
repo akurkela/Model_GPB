@@ -138,7 +138,7 @@ if compute:
 
 
     axs[0].set_ylim(0, 1)
-    axs[1].set_ylim(-0.25, 0.35)
+    #axs[1].set_ylim(-0.25, 0.35)
     axs[0].set_xlim(nL / 0.16, 40)
     axs[1].set_xlim(nL / 0.16 - 0.1*nL, 40)
     axs[2].set_xlim(eL - eL*0.1, 10)
