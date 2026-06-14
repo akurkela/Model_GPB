@@ -62,21 +62,21 @@ with st.sidebar:
     st.header("Termination point")
 
     muL = st.number_input(
-        r"$\mu_L$",
-        value=1000.0,
-        format="%.6f"
+        r"$\mu_L\, [GeV]$",
+        value=1.6,
+        format="%.3f"
     )
 
     nL = st.number_input(
-        r"$n_L$",
-        value=0.600000,
-        format="%.6f"
+        r"$n_L\, [fm^{-3}]$",
+        value=0.85,
+        format="%.3f"
     )
 
     pL = st.number_input(
-        r"$p_L$",
-        value=100.000000,
-        format="%.6f"
+        r"$p_L\, [GeV/fm^{-3}]$",
+        value=0.4,
+        format="%.3f"
     )
 
     st.divider()
@@ -85,7 +85,7 @@ with st.sidebar:
         "Number of interpolations",
         min_value=2,
         max_value=100000,
-        value=300,
+        value=100,
         step=1
     )
 
