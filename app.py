@@ -62,19 +62,19 @@ with st.sidebar:
     st.header("Termination point")
 
     muL = st.number_input(
-        r"$\mu_L\, [GeV]$",
+        r"$\mu_L\, [\text{GeV}]$",
         value=1.6,
         format="%.3f"
     )
 
     nL = st.number_input(
-        r"$n_L\, [fm^{-3}]$",
+        r"$n_L\, [\text{fm}^{-3}]$",
         value=0.85,
         format="%.3f"
     )
 
     pL = st.number_input(
-        r"$p_L\, [GeV/fm^{-3}]$",
+        r"$p_L\, [\text{GeV/fm}^{-3}]$",
         value=0.4,
         format="%.3f"
     )
