@@ -21,12 +21,14 @@ st.set_page_config(
 
 st.title("Gaussian-Process Bridge Extension for Neutron-Star Equations of State")
 
-st.markdown(r"Authors: T. Gorda, O. Komoltsev, A. Kurkela")
+st.markdown(r"Authors: T. Gorda, O. Komoltsev, A. Kurkela, J. Schaffner-Bielich")
+
+st.markdow("Based on arXiv:2606:XXXXX")
 
 st.markdown(r"""
 This application generates a **prior ensemble of allowed equation-of-state
 (EoS) extensions** connecting a low-density neutron-star matter model to the
-high-density perturbative QCD (pQCD) regime. Based on arXiv:xxxx.xxxx
+high-density perturbative QCD (pQCD) regime.
 
 The prior is conditioned on the **termination point**
 
