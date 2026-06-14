@@ -148,22 +148,62 @@ def _make_layer(points, cs2=1):
 
 
 def _generate_fractal_eos(mu, n, p):
-    x = np.exp(np.random.uniform(np.log(1), np.log(4)))
-    mu_grid = np.linspace(2.0, 3.5, 500)
-    qcd = pQCD(x)
-    n_grid = qcd.number_density(mu_grid)
-    p_grid = qcd.pressure(mu_grid) / 1000
-    idx = np.where(n_grid >= n_start_pQCD)[0]
+    while True:
+        x = np.exp(np.random.uniform(np.log(1), np.log(4)))
+        mu_grid = np.linspace(2.0, 3.5, 500)
+        qcd = pQCD(x)
+        n_grid = qcd.number_density(mu_grid)
 
-    eos = _fractal_area_dist([mu, n, p], [mu_grid[idx][0], n_grid[idx][0], p_grid[idx][0]], layers=n_layers, cs2=1)
-    mu_koku, n_koku, p_koku = eos[:, 0], eos[:, 1], eos[:, 2]
+        iqcd = tension_id(
+            -p + mu * n,
+            p,
+            n,
+            muQCD=np.interp(n_start_pQCD, n_grid, mu_grid),
+            X=x
+        )
+
+        if 0 <= iqcd <= 1:
+            break
+
+    p_grid = qcd.pressure(mu_grid) / 1000
+    e_grid = qcd.edens(mu_grid) / 1000
+    valid_idx = np.where(n_grid >= n_start_pQCD)[0]
+
+    pqcd_mu = mu_grid[valid_idx]
+    pqcd_n = n_grid[valid_idx]
+    pqcd_p = p_grid[valid_idx]
+    pqcd_e = e_grid[valid_idx]
+
+    eos = _fractal_area_dist(
+        [mu, n, p],
+        [pqcd_mu[0], pqcd_n[0], pqcd_p[0]],
+        layers=n_layers,
+        cs2=1
+    )
+
+    mu_koku = eos[:, 0]
+    n_koku = eos[:, 1]
+    p_koku = eos[:, 2]
     e_koku = mu_koku * n_koku - p_koku
 
-    with np.errstate(divide="ignore", invalid="ignore"):
-        cs2_koku = np.log(mu_koku[:-1] / mu_koku[1:]) / np.log(n_koku[:-1] / n_koku[1:])
-    cs2_koku = np.append(cs2_koku, cs2_koku[-1])
+    mu_all = np.concatenate([mu_koku, pqcd_mu[1:]])
+    n_all = np.concatenate([n_koku, pqcd_n[1:]])
+    p_all = np.concatenate([p_koku, pqcd_p[1:]])
+    e_all = np.concatenate([e_koku, pqcd_e[1:]])
 
-    return {"mu_koku": mu_koku, "n_koku": n_koku, "p_koku": p_koku, "e_koku": e_koku, "cs2_koku": cs2_koku, "pQCD_X": x}
+    with np.errstate(divide="ignore", invalid="ignore"):
+        cs2 = np.log(mu_all[:-1] / mu_all[1:]) / np.log(n_all[:-1] / n_all[1:])
+
+    cs2 = np.append(cs2, cs2[-1])
+
+    return {
+        "mu_koku": mu_all,
+        "n_koku": n_all,
+        "p_koku": p_all,
+        "e_koku": e_all,
+        "cs2_koku": cs2,
+        "pQCD_X": x,
+    }
 
 
 def _smooth_df(df, n_start_diffusion):
