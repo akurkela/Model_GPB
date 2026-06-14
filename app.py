@@ -121,7 +121,7 @@ if compute:
     eL = -pL + nL * muL
 
 
-    fig, axs = plt.subplots(1, 3, figsize=(20, 6))
+    fig, axs = plt.subplots(1, 3, figsize=(20, 6), dpi=300)
     fig.subplots_adjust(wspace=0.25)
 
     colors = [cmc.devon(0.75), cmc.acton(0.58), cmc.acton(0.15)]
