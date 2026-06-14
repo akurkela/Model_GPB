@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 import cmcrameri.cm as cmc
 import matplotlib.colors as mcolors
-
+import streamlit as st
 # -----------------------------------------------------------------------------
 # Page configuration
 # -----------------------------------------------------------------------------
