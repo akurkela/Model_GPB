@@ -74,7 +74,7 @@ with st.sidebar:
     )
 
     pL = st.number_input(
-        r"$p_L\, [\text{GeV{ \text{fm}^{-3}]$",
+        r"$p_L\,[\mathrm{GeV}\,\mathrm{fm}^{-3}]$",
         value=0.4,
         format="%.3f"
     )
