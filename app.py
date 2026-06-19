@@ -30,7 +30,7 @@ This application generates a **prior ensemble of allowed equation-of-state
 (EoS) extensions** connecting a low-density neutron-star matter model to the
 high-density perturbative QCD (pQCD) regime.
 
-The prior is given by the Gaussian-Process Bridge [Astrophys.J. 1002 (2026) 1, 40] and is conditioned on the termination point **(\mu_\mathrm{term},\; n_\mathrm{term},\; p_\mathrm{term})**,
+The prior is given by the Gaussian-Process Bridge [Astrophys.J. 1002 (2026) 1, 40] and is conditioned on the termination point **$(\mu_\mathrm{term},\; n_\mathrm{term},\; p_\mathrm{term})$**,
 
 where
 
