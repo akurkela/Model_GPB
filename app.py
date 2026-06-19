@@ -135,22 +135,56 @@ if compute:
             axs[2].plot(df.e[i], np.array(df.p[i]), **keywords_1)
 
 
-    axs[0].set_ylim(0, 1)
-    #axs[1].set_ylim(-0.25, 0.35)
-    axs[0].set_xlim(nL / 0.16, 40)
-    axs[1].set_xlim(nL / 0.16 - 0.1*nL, 40)
-    axs[2].set_xlim(eL - eL*0.1, 10)
-    axs[2].set_ylim(pL - pL*0.1, 4)
-
     axs[1].scatter(nL/0.16,1/3-pL/eL, color='black', zorder=100, s=50)
     axs[2].scatter(eL,pL, color='black', zorder=100, s=50)
+
 
     for j in range(3):
         axs[j].set_xscale("log")
         axs[j].tick_params(axis='both', which='major', labelsize=fontsize)
         axs[j].tick_params(axis='both', which='minor', labelbottom=False, labelleft=False)
-
+    for j in range(2):
+        ticks = axs[j].get_xticks()
+        axs[j].set_xticks(np.append(ticks, 40))
+        ticks = axs[j].get_xticks()
+        labels = [f"{t:g}" for t in ticks]
+        for i, t in enumerate(ticks):
+            if np.isclose(t, 40):
+                labels[i] = "40"
+    
+        axs[j].set_xticklabels(labels)
+    
     axs[2].set_yscale("log")
+    
+    for j in range(2,3):
+        ticks = axs[j].get_xticks()
+        axs[j].set_xticks(np.append(ticks, eL))
+        ticks = axs[j].get_xticks()
+        labels = [f"{t:g}" for t in ticks]
+        for i, t in enumerate(ticks):
+            if np.isclose(t, eL):
+                labels[i] = r"$\varepsilon_\mathrm{term}$"
+    
+        axs[j].set_xticklabels(labels)
+    
+    for j in range(2,3):
+        ticks = axs[j].get_yticks()
+        axs[j].set_yticks(np.append(ticks, pL))
+        ticks = axs[j].get_yticks()
+        labels = [f"{t:g}" for t in ticks]
+        for i, t in enumerate(ticks):
+            if np.isclose(t, pL):
+                labels[i] = r"$p_\mathrm{term}$"
+    
+        axs[j].set_yticklabels(labels)
+            
+    
+    axs[0].set_ylim(0, 1)
+    #axs[1].set_ylim(-0.25, 0.35)
+    axs[0].set_xlim(nL / 0.16, 40)
+    axs[1].set_xlim(nL / 0.16 - 0.1*nL, 40)
+    axs[2].set_xlim(eL - eL*0.1, 10)
+    axs[2].set_ylim(pL - pL*0.1, 3.5)
 
     label_kwargs = dict(color="black", fontfamily="Helvetica Neue")
 
