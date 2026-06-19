@@ -30,17 +30,17 @@ This application generates a **prior ensemble of allowed equation-of-state
 (EoS) extensions** connecting a low-density neutron-star matter model to the
 high-density perturbative QCD (pQCD) regime.
 
-The prior is conditioned on the **termination point**
+The prior is given by the Gaussian-Process Bridge [Astrophys.J. 1002 (2026) 1, 40 ] and is conditioned on the **termination point**
 
 $$
-(\mu_L,\; n_L,\; p_L),
+(\mu_\mathrm{term},\; n_\mathrm{term},\; p_\mathrm{term}),
 $$
 
 where
 
-- $\mu_L$ [GeV] is the baryon chemical potential,
-- $n_L$ [1/fm^3] is the baryon number density ,
-- $p_L$ [GeV/fm^3] is the pressure.
+- $\mu_\mathrm{term}$ [GeV] is the baryon chemical potential,
+- $n_\mathrm{term}$ [1/fm^3] is the baryon number density ,
+- $p_\mathrm{term}$ [GeV/fm^3] is the pressure.
 
 The generated interpolations satisfy the constraints of
 
@@ -48,7 +48,7 @@ The generated interpolations satisfy the constraints of
 - mechanical stability,
 - causality,
 
-while connecting to the perturbative-QCD equation of state at high density.
+while smoothly connecting to the perturbative-QCD equation of state at high density [Phys. Rev. Lett. 127, 162003].
 
 Enter the termination point and press **Generate prior**.
 """)
@@ -64,19 +64,19 @@ with st.sidebar:
     st.header("Termination point")
 
     muL = st.number_input(
-        r"$\mu_L\, [\text{GeV}]$",
+        r"$\mu_\mathrm{term}\, [\text{GeV}]$",
         value=1.6,
         format="%.3f"
     )
 
     nL = st.number_input(
-        r"$n_L\, [\text{fm}^{-3}]$",
+        r"$n_\mathrm{term}\, [\text{fm}^{-3}]$",
         value=0.85,
         format="%.3f"
     )
 
     pL = st.number_input(
-        r"$p_L\,[\mathrm{GeV}\,\mathrm{fm}^{-3}]$",
+        r"$p_\mathrm{term}\,[\mathrm{GeV}\,\mathrm{fm}^{-3}]$",
         value=0.4,
         format="%.3f"
     )
