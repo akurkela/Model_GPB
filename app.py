@@ -178,7 +178,7 @@ if compute:
     axs[1].axhline(0.0, color="gray", lw=0.7, ls="--")
 
 
-    st.pyplot(fig)
+    st.pyplot(fig, use_container_width=False)
 
 # -----------------------------------------------------------------------------
 # Footer
