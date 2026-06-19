@@ -120,7 +120,7 @@ if compute:
 
 
     fig, axs = plt.subplots(1, 3, figsize=(20, 6), dpi=300)
-    fig.subplots_adjust(wspace=0.25)
+    fig.subplots_adjust(wspace=0.35)
 
     colors = [cmc.devon(0.75), cmc.acton(0.58), cmc.acton(0.15)]
     cmap = mcolors.ListedColormap(colors)
@@ -147,7 +147,8 @@ if compute:
 
     for j in range(3):
         axs[j].set_xscale("log")
-        axs[j].tick_params(labelsize=fontsize)
+        axs[j].tick_params(axis='both', which='major', labelsize=fontsize)
+        axs[j].tick_params(axis='both', which='minor', labelsize=fontsize-4)
 
     axs[2].set_yscale("log")
 
