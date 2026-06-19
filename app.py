@@ -148,7 +148,7 @@ if compute:
     for j in range(3):
         axs[j].set_xscale("log")
         axs[j].tick_params(axis='both', which='major', labelsize=fontsize)
-        axs[j].tick_params(axis='both', which='minor', labelsize=fontsize-4)
+        axs[j].tick_params(axis='both', which='minor', labelbottom=False, labelleft=False)
 
     axs[2].set_yscale("log")
 
