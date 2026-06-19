@@ -114,12 +114,12 @@ if compute:
         "connect the low-density model to the perturbative-QCD regime."
     )
 
-    fontsize = 25
+    fontsize = 20
 
     eL = -pL + nL * muL
 
 
-    fig, axs = plt.subplots(1, 3, figsize=(18, 5), dpi=250)
+    fig, axs = plt.subplots(1, 3, figsize=(20, 6), dpi=300)
     fig.subplots_adjust(wspace=0.25)
 
     colors = [cmc.devon(0.75), cmc.acton(0.58), cmc.acton(0.15)]
