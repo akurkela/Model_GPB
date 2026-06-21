@@ -36,9 +36,25 @@ def extension_generation(mu, n, p, n_eoss_requested):
 
     print(f"Point is connectible for X in range [{x_list[enter]:.3f},{x_list[exit_]:.3f}]")
 
-    df = pd.DataFrame([_generate_fractal_eos(mu, n, p) for _ in range(n_eoss_requested)])
-    df["correlation"] = np.random.uniform(hierarchical_min, hierarchical_max, size=n_eoss_requested)
-    _diffuse_fractal(df, n)
+    rows = []
+    attempts = 0
+    max_attempts = 20000
+
+    while len(rows) < n_eoss_requested:
+        
+        batch_size = n_eoss_requested - len(rows)
+        df_batch = pd.DataFrame([_generate_fractal_eos(mu, n, p) for _ in range(batch_size)])
+        df_batch["correlation"] = np.random.uniform(hierarchical_min, hierarchical_max, size=batch_size)
+        _diffuse_fractal(df_batch, n)
+
+        good = [i for i in range(len(df_batch)) if np.all(np.asarray(df_batch.cs2.iloc[i]) <= 1.0)]
+        rows.extend([df_batch.iloc[i] for i in good])
+
+        attempts += batch_size
+        if attempts > max_attempts:
+            raise ValueError(f"Only generated {len(rows)} valid EOSs after {attempts} attempts.")
+
+    df = pd.DataFrame(rows[:n_eoss_requested]).reset_index(drop=True)
     return df
 
 def tension_id(e0, p0, n0, muQCD=2.4, X=2):
