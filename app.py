@@ -141,7 +141,7 @@ if compute:
 
     for j in range(3):
         axs[j].set_xscale("log")
-        axs[j].tick_params(axis='both', which='major', labelsize=fontsize)
+        axs[j].tick_params(axis='both', which='major', labelsize=fontsize, length=5)
         axs[j].tick_params(axis='both', which='minor', labelbottom=False, labelleft=False)
     for j in range(2):
         ticks = axs[j].get_xticks()
