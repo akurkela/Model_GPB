@@ -130,12 +130,12 @@ if compute:
             xnorm = (np.log(df.pQCD_X[i]) - np.log(1)) / (np.log(4) - np.log(1))
             keywords_1 = {"lw": 0.8, "color": cmap(xnorm), "alpha": 0.45 + 0.35 * float(xnorm), "zorder": int(10 * xnorm) + 1}
 
-            axs[0].plot(df.n[i] / 0.16, df.cs2[i], **keywords_1)
-            axs[1].plot(df.n[i] / 0.16, 1 / 3 - np.array(df.p[i]) / np.array(df.e[i]), **keywords_1)
+            axs[0].plot(df.n[i] , df.cs2[i], **keywords_1)
+            axs[1].plot(df.n[i] , 1 / 3 - np.array(df.p[i]) / np.array(df.e[i]), **keywords_1)
             axs[2].plot(df.e[i], np.array(df.p[i]), **keywords_1)
 
 
-    axs[1].scatter(nL/0.16,1/3-pL/eL, color='black', zorder=100, s=50)
+    axs[1].scatter(nL/,1/3-pL/eL, color='black', zorder=100, s=50)
     axs[2].scatter(eL,pL, color='black', zorder=100, s=50)
 
 
@@ -156,33 +156,27 @@ if compute:
     
     axs[2].set_yscale("log")
     
-    for j in range(2,3):
-        ticks = axs[j].get_xticks()
-        axs[j].set_xticks(np.append(ticks, eL))
-        ticks = axs[j].get_xticks()
-        labels = [f"{t:g}" for t in ticks]
-        for i, t in enumerate(ticks):
-            if np.isclose(t, eL):
-                labels[i] = r"$\varepsilon_\mathrm{term}$"
+    axs[2].plot(
+    [eL, eL],
+    [pL - 0.1*pL, pL-0.08*pL],
+    #transform=axs[2].get_xaxis_transform(),
+    color="k",
+    lw=1.5,
+    clip_on=False,
+    )
     
-        axs[j].set_xticklabels(labels)
-    
-    for j in range(2,3):
-        ticks = axs[j].get_yticks()
-        axs[j].set_yticks(np.append(ticks, pL))
-        ticks = axs[j].get_yticks()
-        labels = [f"{t:g}" for t in ticks]
-        for i, t in enumerate(ticks):
-            if np.isclose(t, pL):
-                labels[i] = r"$p_\mathrm{term}$"
-    
-        axs[j].set_yticklabels(labels)
-            
+    axs[2].plot([eL - 0.1*eL, eL-0.08*eL],
+        [pL, pL],
+        #transform=axs[2].get_xaxis_transform(),
+        color="k",
+        lw=1.5,
+        clip_on=False,
+    )
     
     axs[0].set_ylim(0, 1)
     #axs[1].set_ylim(-0.25, 0.35)
-    axs[0].set_xlim(nL / 0.16, 40)
-    axs[1].set_xlim(nL / 0.16 - 0.1*nL, 40)
+    axs[0].set_xlim(nL , 40)
+    axs[1].set_xlim(nL  - 0.1*nL, 40)
     axs[2].set_xlim(eL - eL*0.1, 10)
     axs[2].set_ylim(pL - pL*0.1, 3.5)
 
