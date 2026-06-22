@@ -126,7 +126,7 @@ if compute:
     cmap = mcolors.ListedColormap(colors)
 
     for i in range(len(df)):
-        if ((df.cs2[i]) <= 1.0).all():
+        
             xnorm = (np.log(df.pQCD_X[i]) - np.log(1)) / (np.log(4) - np.log(1))
             keywords_1 = {"lw": 0.8, "color": cmap(xnorm), "alpha": 0.45 + 0.35 * float(xnorm), "zorder": int(10 * xnorm) + 1}
 
