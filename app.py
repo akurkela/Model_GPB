@@ -182,10 +182,10 @@ if compute:
 
     label_kwargs = dict(color="black", fontfamily="Helvetica Neue")
 
-    axs[0].set_xlabel(r"n [n$_{\mathrm{sat}}$]", **label_kwargs, fontsize=fontsize, labelpad=2)
+    axs[0].set_xlabel(r"n [\text{fm}^{-3}]", **label_kwargs, fontsize=fontsize, labelpad=2)
     axs[0].set_ylabel(r"$c_s^2$", **label_kwargs, fontsize=fontsize)
 
-    axs[1].set_xlabel(r"n [n$_{\mathrm{sat}}$]", **label_kwargs, labelpad=2, fontsize=fontsize)
+    axs[1].set_xlabel(r"n [\text{fm}^{-3}]", **label_kwargs, labelpad=2, fontsize=fontsize)
     axs[1].set_ylabel(r"$\Delta$", **label_kwargs, fontsize=fontsize)
 
     axs[2].set_xlabel(r"$\varepsilon$ [GeV fm$^{-3}$]", **label_kwargs, labelpad=2, fontsize=fontsize)
