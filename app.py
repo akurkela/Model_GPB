@@ -135,7 +135,7 @@ if compute:
             axs[2].plot(df.e[i], np.array(df.p[i]), **keywords_1)
 
 
-    axs[1].scatter(nL/,1/3-pL/eL, color='black', zorder=100, s=50)
+    axs[1].scatter(nL,1/3-pL/eL, color='black', zorder=100, s=50)
     axs[2].scatter(eL,pL, color='black', zorder=100, s=50)
 
 
@@ -145,12 +145,12 @@ if compute:
         axs[j].tick_params(axis='both', which='minor', labelbottom=False, labelleft=False)
     for j in range(2):
         ticks = axs[j].get_xticks()
-        axs[j].set_xticks(np.append(ticks, 40))
+        axs[j].set_xticks(np.append(ticks, 6.4))
         ticks = axs[j].get_xticks()
         labels = [f"{t:g}" for t in ticks]
         for i, t in enumerate(ticks):
-            if np.isclose(t, 40):
-                labels[i] = "40"
+            if np.isclose(t, 6.4):
+                labels[i] = "6.4"
     
         axs[j].set_xticklabels(labels)
     
@@ -175,8 +175,8 @@ if compute:
     
     axs[0].set_ylim(0, 1)
     #axs[1].set_ylim(-0.25, 0.35)
-    axs[0].set_xlim(nL , 40)
-    axs[1].set_xlim(nL  - 0.1*nL, 40)
+    axs[0].set_xlim(nL , 6.4)
+    axs[1].set_xlim(nL  - 0.1*nL, 6.4)
     axs[2].set_xlim(eL - eL*0.1, 10)
     axs[2].set_ylim(pL - pL*0.1, 3.5)
 
